@@ -9,6 +9,7 @@ public class Players {
         this.jerseyNumber = jerseyNumber;
         this.name = name;
         this.attribute = attribute;
+
     }
 
     public int getJerseyNumber() {
