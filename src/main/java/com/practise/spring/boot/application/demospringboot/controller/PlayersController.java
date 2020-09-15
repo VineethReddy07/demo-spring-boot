@@ -4,7 +4,7 @@ import com.practise.spring.boot.application.demospringboot.service.Players;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,6 +18,6 @@ public class PlayersController {
 
     @GetMapping("/HelloWorld")
     public String print(){
-        return "HelloWorld" + LocalDateTime.now();
+        return "HelloWorld" + " " + LocalDate.now();
     }
 }
