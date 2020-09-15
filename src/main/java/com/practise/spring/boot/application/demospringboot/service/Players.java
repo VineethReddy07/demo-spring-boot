@@ -8,6 +8,7 @@ public class Players {
     public Players(int jerseyNumber, String name, String attribute) {
         this.jerseyNumber = jerseyNumber;
         this.name = name;
+
         this.attribute = attribute;
 
     }
