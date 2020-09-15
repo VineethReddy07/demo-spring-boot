@@ -33,3 +33,15 @@ build/
 .vscode/
 .idea
 *.iml
+
+#package
+*.jar
+*.ear
+*.war
+*.tar.gz
+*.rar
+*.zip
+
+#Compiled class
+*.class
+
