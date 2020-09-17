@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class PlayersControllerTest {
-    @InjectMocks
-    PlayersController controller;
+class SampleControllerTest {
 
+    @InjectMocks
+    SampleController controller;
 
     @Test
     void printTest() {
