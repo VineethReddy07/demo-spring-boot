@@ -64,4 +64,20 @@ public class SampleController {
         return repository.findByID(41);
     }
 
+    @GetMapping("jpaUpdate")
+    public Student jpaUpdate(){
+        return repository.update(new Student(14,"DEVARAJ",14,"MALE"));
+    }
+    @GetMapping("jpaInsert")
+    public Student jpaInsert(){
+        return repository.insert(new Student(1257,"VASU",0,"MALE"));
+    }
+    @GetMapping("jpaDelete")
+    public void jpaDelete(){
+        repository.delete(48);
+    }
+    @GetMapping("jpaRetrieveAll")
+    public List<Student> retrieveAll(){
+        return repository.findAll();
+    }
 }
