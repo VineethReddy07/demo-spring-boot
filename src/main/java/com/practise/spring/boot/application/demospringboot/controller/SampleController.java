@@ -1,7 +1,9 @@
 package com.practise.spring.boot.application.demospringboot.controller;
 
 import com.practise.spring.boot.application.demospringboot.dataService.PlayerProfileJdbcService;
+import com.practise.spring.boot.application.demospringboot.entity.Student;
 import com.practise.spring.boot.application.demospringboot.mapper.Players;
+import com.practise.spring.boot.application.demospringboot.repository.JpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,9 @@ public class SampleController {
 
     @Autowired
     PlayerProfileJdbcService service;
+
+    @Autowired
+    JpaRepository repository;
 
     @GetMapping("/HelloWorld")
     public String print() {
@@ -52,6 +57,11 @@ public class SampleController {
     public int updateInfo() {
         return service.update
                 (new Players(6, "Anita", "Hyderabad", new Date()));
+    }
+
+    @GetMapping("jpaRetrieve")
+    public Student retrieve(){
+        return repository.findByID(41);
     }
 
 }
