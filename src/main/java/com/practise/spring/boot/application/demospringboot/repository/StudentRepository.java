@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class JpaRepository {
+public class StudentRepository {
 
     @PersistenceContext
     EntityManager entityManager;

@@ -1,17 +1,22 @@
 package com.practise.spring.boot.application.demospringboot.controller;
 
 import com.practise.spring.boot.application.demospringboot.dataService.PlayerProfileJdbcService;
+import com.practise.spring.boot.application.demospringboot.entity.Bank;
 import com.practise.spring.boot.application.demospringboot.entity.Student;
 import com.practise.spring.boot.application.demospringboot.mapper.Players;
-import com.practise.spring.boot.application.demospringboot.repository.JpaRepository;
+import com.practise.spring.boot.application.demospringboot.repository.SpringBankRepository;
+import com.practise.spring.boot.application.demospringboot.repository.SpringStudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class SampleController {
@@ -20,7 +25,11 @@ public class SampleController {
     PlayerProfileJdbcService service;
 
     @Autowired
-    JpaRepository repository;
+    SpringStudentRepository repository;
+
+    @Autowired
+    SpringBankRepository bankRepository;
+
 
     @GetMapping("/HelloWorld")
     public String print() {
@@ -60,24 +69,49 @@ public class SampleController {
     }
 
     @GetMapping("jpaRetrieve")
-    public Student retrieve(){
-        return repository.findByID(41);
+    public Optional<Student> retrieve() {
+        return repository.findById(41);
     }
 
     @GetMapping("jpaUpdate")
-    public Student jpaUpdate(){
-        return repository.update(new Student(14,"DEVARAJ",14,"MALE"));
+    public Student jpaUpdate() {
+        return repository.save(new Student(14, "DEVARAJ", 14, "MALE"));
     }
+
     @GetMapping("jpaInsert")
-    public Student jpaInsert(){
-        return repository.insert(new Student(1257,"VASU",0,"MALE"));
+    public Student jpaInsert() {
+        return repository.save(new Student(1257, "VASU", 0, "MALE"));
     }
+
     @GetMapping("jpaDelete")
-    public void jpaDelete(){
-        repository.delete(48);
+    public void jpaDelete() {
+        repository.deleteById(48);
     }
+
     @GetMapping("jpaRetrieveAll")
-    public List<Student> retrieveAll(){
+    public List<Student> retrieveAll() {
         return repository.findAll();
+    }
+
+    @GetMapping("retrieveAccount")
+    public Optional<Bank> retrieveAccount() {
+        return bankRepository.findById(bankRepository.findAll().stream().
+                filter(accounts -> accounts.getAccountNumber() == 41).
+                collect(Collectors.toList()).get(0).getAccountNumber());
+    }
+
+    @GetMapping("insertBank")
+    public Bank bankInsert() {
+        return bankRepository.save(new Bank(05, "Snigda", "Los Angeles", 26));
+    }
+
+    @GetMapping("updateName")
+    public Bank updateName(Bank bank) {
+         Optional<Bank> b= bankRepository.findById(bankRepository.findAll().stream().
+                filter(accounts -> accounts.getAccountNumber() == 14).
+                collect(Collectors.toList()).get(0).getAccountNumber());
+         b.get().setName("Ravi");
+         return bankRepository.save(b.get());
+
     }
 }
